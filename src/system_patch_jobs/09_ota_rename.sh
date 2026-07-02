@@ -1,14 +1,6 @@
 #!/bin/sh
 
-log "Disabling OTA"
-
-stop ota-update
-stop otaupd
-stop otav3
-
-# Kill them asap
-killall otaupd -s -9
-killall otav3 -s -9
+log "Renaming OTA"
 
 if [ -f "/usr/bin/otaupd" ] ; then
     log "Renaming otaupd"
@@ -27,5 +19,5 @@ stop otaupd
 stop otav3
 
 # Kill them asap
-killall otaupd -s -9
-killall otav3 -s -9
+killall -s SIGKILL otaupd
+killall -s SIGKILL otav3
