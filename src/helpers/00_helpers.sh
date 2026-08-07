@@ -55,6 +55,7 @@ if [ -f /lib/ld-linux-armhf.so.3 ]; then
 fi
 
 # Check if Kindle is rootless (rootfs is signed and RO)
+ROOTLESS=0
 if cat /proc/cmdline | grep androidboot.veritymode; then
     ROOTLESS=1
 fi
