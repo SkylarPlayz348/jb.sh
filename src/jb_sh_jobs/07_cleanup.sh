@@ -14,12 +14,15 @@ if [ $RUN_MODE -eq 1 ] || [ $JAILBROKEN -eq 0 ]; then
     log "Restarting scanner..." # Necessary for sh_integration
     sleep 2 # So they can read what's about to happen
     if [ -f "/etc/upstart/kppmainapp.conf" ] ; then
+        log "Restart strategy 1"
         restart lab126_gui &
         sleep 3 # Wait for it to stop
     elif [ -f "/etc/upstart/acxe.conf" ] ; then
+        log "Restart strategy 2"
         restart acxe & # On older devices restart the entire gui
         sleep 3 # Wait for it to stop
     else
+        log "Restart strategy 3"
         telinit 5 &
         sleep 3 # Wait for it to stop
     fi
