@@ -1,3 +1,4 @@
+#!/bin/sh
 if [ -n "${JB_HEADER+x}" ]; then
     log "Powered by jb.sh - created by Hackerdude"
     log "$JB_SH_VERSION"
