@@ -105,7 +105,7 @@ log() {
         eips 0 $((POS-1)) "${1}"
     fi
     
-    logger "I JB_SH ${RUN_MODE}_${JAILBROKEN}:: ${1}"
+    logger "I JB_SH ${RUN_MODE}_${JAILBROKEN}_${ROOTLESS}:: ${1}"
 }
 
 # Find which chattr to use

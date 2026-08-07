@@ -16,7 +16,7 @@ else
 fi
 
 log ""
-log "J:$RUN_MODE:$JAILBROKEN:$PLATFORM"
+log "J:$RUN_MODE:$JAILBROKEN:$ROOTLESS:$PLATFORM"
 log ""
 
 if [ $JB_SH_DEBUG -eq 1 ]; then
