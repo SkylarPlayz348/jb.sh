@@ -54,6 +54,43 @@ if [ -f /lib/ld-linux-armhf.so.3 ]; then
     PLATFORM="kindlehf"
 fi
 
+# Check if the device is rootless or not (rootless jailbreaks are required on dm-verity RO rootfs)
+prodVersion=0
+unlockedkernel=true
+secureCpu=0
+veritymode=disabled
+
+for i in $(cat /proc/cmdline); do
+  case "$i" in
+    androidboot.prod*)
+      val=$i
+      prodVersion=${val##*=}
+      ;;
+    androidboot.unlocked_kernel*)
+      val=$i
+      unlockedKernel=${val##*=}
+      ;;
+    secure_cpu*)
+      val=$i
+      secureCpu=${val##*=}
+      ;;
+    androidboot.veritymode*)
+        val=$i
+        veritymode=${val##*=}
+        ;;
+  esac
+done
+
+ROOTLESS=0
+if [ "$prodVersion" = "1" ] && [ "$unlockedKernel" = "false" ] && [ "$secureCpu" = "1" ]; then
+    ROOTLESS=1
+else
+    if [ "$veritymode" = "enforcing" ]; then
+        ROOTLESS=1
+    fi
+fi
+
+
 POS=1
 log() {
     if [ $JB_SH_DEBUG -eq 1 ]; then

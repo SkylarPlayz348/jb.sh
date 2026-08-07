@@ -43,15 +43,19 @@ log "Setting up hotfix and emergency runners"
 log "$(cat /var/local/kmc/sql/appreg_register_hotfix.sql | sqlite3 /var/local/appreg.db)"
 log "$(cat /var/local/kmc/sql/appreg_register_emergency.sql | sqlite3 /var/local/appreg.db)"
 
-log "Setting up sh_integration"
-log "$(cat /var/local/kmc/sql/appreg_register_sh_integration.sql | sqlite3 /var/local/appreg.db)"
-NUM=$(echo "SELECT * FROM properties WHERE handlerId='tech.hackerdude.shell_integration.extractor'" | sqlite3 /var/local/appreg.db --line | wc -l)
-if [ ! $NUM -eq 7 ]; then
-    log "Failed to setup sh_integration, trying again..."
-    sleep 1
-    log "$(cat /var/local/kmc/sql/appreg_register_sh_integration.sql | sqlite3 /var/local/appreg.db)"
+if [ ! -d "/usr/lib/ccat" ]; then
+    log "Setting up sh_integration"
+    log "$(cat /var/local/kmc/sql/appreg_register_sh_integration_1.sql | sqlite3 /var/local/appreg.db)"
     NUM=$(echo "SELECT * FROM properties WHERE handlerId='tech.hackerdude.shell_integration.extractor'" | sqlite3 /var/local/appreg.db --line | wc -l)
     if [ ! $NUM -eq 7 ]; then
-        log "Failed to setup sh_integraion - please report to Hackerdude"
+        log "Failed to setup sh_integration, trying again..."
+        sleep 1
+        log "$(cat /var/local/kmc/sql/appreg_register_sh_integration_1.sql | sqlite3 /var/local/appreg.db)"
+        NUM=$(echo "SELECT * FROM properties WHERE handlerId='tech.hackerdude.shell_integration.extractor'" | sqlite3 /var/local/appreg.db --line | wc -l)
+        if [ ! $NUM -eq 7 ]; then
+            log "Failed to setup sh_integraion - please report to Hackerdude"
+        fi
     fi
+else
+    log "/usr/lib/ccat detected - deferring sh_integration setup to system patch stage"
 fi
