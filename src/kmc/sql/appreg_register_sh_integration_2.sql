@@ -26,6 +26,7 @@ INSERT INTO properties (handlerId, name, value) VALUES ('tech.hackerdude.shell_i
 INSERT INTO properties (handlerId, name, value) VALUES ('tech.hackerdude.shell_integration.launcher', 'maxPauseTime', '60');
 INSERT INTO properties (handlerId, name, value) VALUES ('tech.hackerdude.shell_integration.launcher', 'maxUnloadTime', '60');
 INSERT INTO properties (handlerId, name, value) VALUES ('tech.hackerdude.shell_integration.launcher', 'maxLoadTime', '60');
+INSERT INTO properties (handlerId, name, value) VALUES ('tech.hackerdude.shell_integration.launcher', 'supportedOrientation', 'U');
 INSERT INTO properties (handlerId, name, value) VALUES ('tech.hackerdude.shell_integration.launcher', 'command', '/var/local/kmc/bin/sh_integration_launcher');
 INSERT INTO associations (interface, handlerId, contentId, defaultAssoc) VALUES ('application', 'tech.hackerdude.shell_integration.launcher', 'MT:text/x-shellscript', 'true');
 
